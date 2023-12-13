@@ -1,10 +1,14 @@
 //ARQUIVO PARA ROTAS 
 import express from "express";
+
 const app = express();
-app.use(express.json())
-let password = [{
-    nome: ""
-}];
+
+app.use(express.json()) //Middleware
+
+let password = {
+    email: "",
+    senha: ""
+};
 //Criando rota padrão
 app.get("/", (req,res) =>{
     res.status(200).send("Olá ")
@@ -12,11 +16,12 @@ app.get("/", (req,res) =>{
 
 //Criando rota de cadastro
 app.get("/cadastro", (req,res) => {
-    res.status(200).send("<h1> CADASTRO </h1>")
+    res.status(200).send(password)
 })
 
 app.post("/cadastro", (req,res) => {
-    password = req.body
-    res.status(201).send(password)
+    password.email = req.body.email
+    password.senha = req.body.senha
+    res.status(201).send([password])
 })
 export default app
