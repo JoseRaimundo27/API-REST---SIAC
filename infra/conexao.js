@@ -8,4 +8,6 @@ const conexao = mysql.createConnection({
     database: "siac-api"
 })
 
+conexao.connect()
+
 export default conexao
