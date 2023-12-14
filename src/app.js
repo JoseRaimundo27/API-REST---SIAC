@@ -9,13 +9,6 @@ const corss = cors();
 app.use(express.json()) //Middleware
 app.use(corss)
 
-let dadosLogin = {
-    email: "",
-    senha: ""
-};
-
-
-
 //Criando rotas de cadastro
 app.get("/cadastro", (req,res) => {
 
