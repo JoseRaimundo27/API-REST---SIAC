@@ -3,23 +3,15 @@ import LoginRepository from "../repositories/LoginRepository.js"
 
 class LoginController {
     //mostra todos:
-    index(req, res) {
-        const result = LoginRepository.findAll()
+    async index(req, res) {
+        const result = await LoginRepository.findAll()
         res.json(result)
     }
     //mostra por id:
-    show(req, res) {
-        const sql = "SELECT * FROM `login` WHERE id=?;"
+    async show(req, res) {
         const id = req.params.id
-        conexao.query(sql, id, (error, result) => {
-            if (error) {
-                res.status(404).json({
-                    "erro": error
-                })
-            } else {
-                res.status(200).json(result)
-            }
-        })
+        const result = await LoginRepository.findById(id)
+        res.json(result)
     }
 
     store(req, res) {
