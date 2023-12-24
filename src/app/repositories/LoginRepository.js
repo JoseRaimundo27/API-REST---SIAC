@@ -1,59 +1,26 @@
-import conexao from "../database/conexao.js"
+import {consulta} from "../database/conexao.js"
+
 class LoginRepository {
     //Regras genéricas do Mysql
     create(dadosLogin) {
         const sql = "INSERT INTO `login` SET ?"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, dadosLogin, (err, result) => {
-                if (err) return reject("Não foi possível cadastrar")
-
-                const resulJSON = JSON.parse(JSON.stringify(result))
-                return resolve(resulJSON)
-            })
-        })
+        return consulta(sql,dadosLogin, "Não foi possivel cadastrar")
     }
     findAll() {
         const sql = "SELECT * FROM `login`;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, (err, result) => {
-                if (err) return reject("Não foi possível conectar ao banco de dados")
-
-                const resulJSON = JSON.parse(JSON.stringify(result))
-                return resolve(resulJSON)
-            })
-        })
+        return consulta(sql, "Não foi possível encontrar login")
     }
     findById(id) {
         const sql = "SELECT * FROM `login` WHERE id=?;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, id, (error, result) => {
-                if (error) return reject("Não foi possível encontrar o elemento pelo ID")
-                const resulJSON = JSON.parse(JSON.stringify(result))
-                return resolve(resulJSON)
-            })
-        })
-
+        return consulta(sql,id,"Não foi possível achar seleção pelo id")
     }
     update(dadosLogin, id) {
         const sql = "UPDATE `login` SET ? WHERE id=?"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, [dadosLogin, id], (error, result) => {
-                if (error) return reject("Não foi possível editar")
-                const resulJSON = JSON.parse(JSON.stringify(result))
-                return resolve(resulJSON)
-            })
-        })
+        return consulta(sql, [dadosLogin,id], "Não foi possível atualizar")
     }
-
     delete(id) {
         const sql = "DELETE FROM `login` WHERE id=?;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, id, (error, result) => {
-                if (error) return reject("Não foi possível apagar")
-                const resulJSON = JSON.parse(JSON.stringify(result))
-                return resolve(resulJSON)
-            })
-        })
+        return consulta(sql, id, "Não foi possível deletar")
     }
 }
 export default new LoginRepository();

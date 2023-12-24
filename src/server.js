@@ -1,4 +1,4 @@
-import app from "./src/app.js" //Importando objeto app
+import app from "./app.js" //Importando objeto app
 
 
 //realizar a conexão:

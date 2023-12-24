@@ -10,4 +10,15 @@ const conexao = mysql.createConnection({
 
 conexao.connect()
 
+export const consulta = (sql,valores="",mensagemReject)=>{
+    return new Promise((resolve, reject) => {
+        conexao.query(sql,valores, (err, result) => {
+            if (err) return reject(mensagemReject)
+            const resulJSON = JSON.parse(JSON.stringify(result))
+            return resolve(resulJSON)
+        })
+    })
+
+}
+
 export default conexao
